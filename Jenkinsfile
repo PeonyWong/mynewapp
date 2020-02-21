@@ -5,6 +5,12 @@ pipeline {
       }
    stages {
       
+      stage('NPM Setup') {
+      steps {
+         sh 'npm install'
+      }
+   }
+      
    stage('IOS Build') {
    steps {
       sh 'ionic cordova build ios --release'
