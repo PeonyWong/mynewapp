@@ -11,46 +11,31 @@ pipeline {
       }
    }
       
-   stage('IOS Build') {
+   stage('Build') {
    steps {
-      sh 'ionic cordova build ios --release'
+      sh 'npm run build'
      } 
   }
 
-   stage('Android Build') {
-   steps {
-      sh 'ionic cordova build android --release'
-   }
-  }
-
-   stage('APK Sign') {
-   steps {
-      sh 'jarsigner -storepass your_password -keystore keys/yourkey.keystore platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk nameApp'
-   }
-   }
-
-   stage('Stage Web Build') {
+   stage('Web Build') {
       steps {
-        sh 'npm run build --prod'
+        sh 'ionic serve'
     }
   }
 
-   stage('Publish Firebase Web') {
+   stage('install Capacitor') {
       steps {
-      sh 'firebase deploy --token "Your Token Key"'
-   }
-  }
-
-   stage('Publish iOS') {
-      steps {
-       echo "Publish iOS Action"
+       sh 'npm install --save @capacitor/core @capacitor/cli'
+       sh 'npx cap init'
     }
    }
 
-   stage('Publish Android') {
+   stage('Add and copy iOS ') {
      steps {
-    echo "Publish Android API Action"
-   }
+        sh 'npx cap add ios'
+        sh 'npx cap sync'
+        sh 'npx cap copy'
+     }
   }
 
  }
