@@ -20,7 +20,6 @@ pipeline {
    stage('install Capacitor') {
       steps {
        sh 'npm install --save @capacitor/core @capacitor/cli'
-       sh 'npx cap init'
     }
    }
 
