@@ -17,12 +17,6 @@ pipeline {
      } 
   }
 
-   stage('Web Build') {
-      steps {
-        sh 'ionic serve'
-    }
-  }
-
    stage('install Capacitor') {
       steps {
        sh 'npm install --save @capacitor/core @capacitor/cli'
